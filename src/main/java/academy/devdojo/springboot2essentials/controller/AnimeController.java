@@ -30,16 +30,24 @@ public class AnimeController {
             return new ResponseEntity<>(service.listAll(), HttpStatus.OK);
         }
 
+     //listar animes por id
     @GetMapping(path = "/{id}")
        public ResponseEntity<Anime> findById(@PathVariable long id){
-        log.info(dateUtil.formatLocalDateTimeToDateBaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(service.findById(id));
     }
 
+    //cadastrar novos animes
     @PostMapping
        public ResponseEntity<Anime> save(@RequestBody Anime anime){
         return new ResponseEntity(service.save(anime), HttpStatus.CREATED);
     }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable long id){
+        service.delete(id);
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
     }
 
