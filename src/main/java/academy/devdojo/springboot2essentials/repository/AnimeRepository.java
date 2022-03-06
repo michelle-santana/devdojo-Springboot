@@ -1,6 +1,6 @@
-package academy.devdojo.springboot2.repository;
+package academy.devdojo.springboot2essentials.repository;
 
-import academy.devdojo.springboot2.domain.Anime;
+import academy.devdojo.springboot2essentials.domain.Anime;
 
 import java.util.List;
 
