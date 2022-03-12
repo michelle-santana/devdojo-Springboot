@@ -27,32 +27,34 @@ public class AnimeController {
 
     //listar animes
     @GetMapping
-       public ResponseEntity<List<Anime>> list(){
+       public ResponseEntity<List<Anime>> listAllAnimes(){
         log.info(dateUtil.formatLocalDateTimeToDateBaseStyle(LocalDateTime.now()));
             return new ResponseEntity<>(service.listAll(), HttpStatus.OK);
         }
 
      //listar animes por id
     @GetMapping(path = "/{id}")
-       public ResponseEntity<Anime> findById(@PathVariable long id){
+       public ResponseEntity<Anime> findAnimesById(@PathVariable long id){
         return ResponseEntity.ok(service.findByIdOrThrowBadRequestException(id));
     }
 
     //cadastrar novos animes
     @PostMapping
-       public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody anime){
+       public ResponseEntity<Anime> saveAnimes(@RequestBody AnimePostRequestBody anime){
         return new ResponseEntity(service.save(anime), HttpStatus.CREATED);
     }
 
+    //deletar animes
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable long id){
+    public ResponseEntity<Void> deleteAnimes(@PathVariable long id){
         service.delete(id);
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    //atualizar animes
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Anime anime){
-        service.replace(new AnimePutRequestBody());
+    public ResponseEntity<Void> replaceAnimes(@RequestBody AnimePutRequestBody animePutRequestBody) {
+        service.replace(animePutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

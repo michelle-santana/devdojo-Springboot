@@ -39,14 +39,24 @@ public class AnimeService {
         repository.delete(findByIdOrThrowBadRequestException(id));
 
     }
+//
+//    public void replace(AnimePutRequestBody animePutRequestBody) {
+//        findByIdOrThrowBadRequestException(animePutRequestBody.getId());
+//        Anime anime = Anime.builder()
+//                .id(animePutRequestBody.getId())
+//                .name(animePutRequestBody.getName())
+//                .build();
+//        repository.save(anime);
+//
+//    }
 
     public void replace(AnimePutRequestBody animePutRequestBody) {
-        findByIdOrThrowBadRequestException(animePutRequestBody.getId());
+        Anime savedAnime = findByIdOrThrowBadRequestException(animePutRequestBody.getId());
         Anime anime = Anime.builder()
-                .id(animePutRequestBody.getId())
+                .id(savedAnime.getId())
                 .name(animePutRequestBody.getName())
                 .build();
-        repository.save(anime);
 
+        repository.save(anime);
     }
 }
