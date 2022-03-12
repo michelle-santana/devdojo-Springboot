@@ -1,7 +1,9 @@
 package academy.devdojo.springboot2essentials.controller;
 
-import academy.devdojo.springboot2essentials.domain.Anime;
-import academy.devdojo.springboot2essentials.service.AnimeService;
+import academy.devdojo.springboot2essentials.domain.entities.Anime;
+import academy.devdojo.springboot2essentials.requests.AnimePostRequestBody;
+import academy.devdojo.springboot2essentials.requests.AnimePutRequestBody;
+import academy.devdojo.springboot2essentials.servicies.AnimeService;
 import academy.devdojo.springboot2essentials.util.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -33,12 +35,12 @@ public class AnimeController {
      //listar animes por id
     @GetMapping(path = "/{id}")
        public ResponseEntity<Anime> findById(@PathVariable long id){
-        return ResponseEntity.ok(service.findById(id));
+        return ResponseEntity.ok(service.findByIdOrThrowBadRequestException(id));
     }
 
     //cadastrar novos animes
     @PostMapping
-       public ResponseEntity<Anime> save(@RequestBody Anime anime){
+       public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody anime){
         return new ResponseEntity(service.save(anime), HttpStatus.CREATED);
     }
 
@@ -50,7 +52,7 @@ public class AnimeController {
 
     @PutMapping
     public ResponseEntity<Void> replace(@RequestBody Anime anime){
-        service.replace(anime);
+        service.replace(new AnimePutRequestBody());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
